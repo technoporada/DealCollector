@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deal Collector</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🎮 Deal Collector</h1>
+            <p>Steam, Epic, GOG, SharewareOnSale</p>
+            <div class="controls">
+                <button id="scrape-btn" class="btn btn-primary">🔄 Odśwież</button>
+                <button id="favorites-btn" class="btn btn-secondary">⭐ Ulubione</button>
+                <button id="all-deals-btn" class="btn btn-secondary">📋 Wszystkie</button>
+            </div>
+        </header>
+
+        <div class="filters">
+            <select id="category-filter">
+                <option value="">Wszystkie</option>
+                <option value="games">Gry</option>
+                <option value="software">Programy</option>
+            </select>
+            <div class="stats" id="stats">
+                <span id="deals-count">0 ofert</span>
+                <span id="last-update">Nigdy</span>
+            </div>
+        </div>
+
+        <main class="main">
+            <div id="loading" class="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Ładowanie...</p>
+            </div>
+            <div id="deals-container" class="deals-container"></div>
+        </main>
+    </div>
+    <div id="toast-container" class="toast-container"></div>
+    <script src="/static/app.js"></script>
+</body>
+</html>
