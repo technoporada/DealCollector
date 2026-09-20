@@ -4,10 +4,10 @@ from fastapi.responses import FileResponse
 import json
 import asyncio
 from datetime import datetime
-from scrapers.steamdb_scraper import SteamDBScraper
 from scrapers.epic_scraper import EpicScraper
+from scrapers.gamerpower_scraper import GamerpowerScraper
+from scrapers.itchio_scraper import ItchIOScraper
 from scrapers.gog_scraper import GOGScraper
-from scrapers.shareware_scraper import SharewareScraper
 from scrapers.base_scraper import Deal
 import uvicorn
 
@@ -70,10 +70,10 @@ async def remove_from_favorites(deal_id: str):
 async def scrape_deals():
     try:
         scrapers = [
-            SteamDBScraper(),
+            GamerpowerScraper(),
             EpicScraper(),
+            ItchIOScraper(),
             GOGScraper(),
-            SharewareScraper()
         ]
 
         all_deals = []
@@ -111,6 +111,20 @@ async def get_stats():
         "categories": categories,
         "last_update": data.get("last_update", "Never")
     }
+
+
+@app.get("/api/live")
+async def live_giveaways(platform: str = None, game_type: str = None, sort_by: str = None):
+    scraper = GamerpowerScraper()
+    deals = await scraper.scrape_filtered(platform, game_type, sort_by)
+    return {"deals": [d.to_dict() for d in deals], "count": len(deals)}
+
+
+@app.get("/api/worth")
+async def worth(platform: str = None, game_type: str = None):
+    scraper = GamerpowerScraper()
+    data = await scraper.get_worth(platform, game_type)
+    return data
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000, reload=True)
