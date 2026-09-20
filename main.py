@@ -8,6 +8,9 @@ from scrapers.epic_scraper import EpicScraper
 from scrapers.gamerpower_scraper import GamerpowerScraper
 from scrapers.itchio_scraper import ItchIOScraper
 from scrapers.gog_scraper import GOGScraper
+from scrapers.freetogame_scraper import FreeToGameScraper
+from scrapers.freesteamkeys_scraper import FreeSteamKeysScraper
+from scrapers.nebula_scraper import NebulaScraper
 from scrapers.base_scraper import Deal
 import uvicorn
 
@@ -73,6 +76,9 @@ async def scrape_deals():
             GamerpowerScraper(),
             EpicScraper(),
             ItchIOScraper(),
+            FreeToGameScraper(),
+            FreeSteamKeysScraper(),
+            NebulaScraper(),
             GOGScraper(),
         ]
 
