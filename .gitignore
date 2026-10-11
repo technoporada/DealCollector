@@ -3,3 +3,7 @@ __pycache__/
 *.pyc
 .env
 *.log
+
+# środowisko wirtualne — odtwarzalne z requirements.txt
+.venv/
+venv/
