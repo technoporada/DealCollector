@@ -1,65 +1,86 @@
-# 🎮 Deal Collector
+# DealCollector
 
-**Automatyczny kolektor darmowych gier i programów**
+[![CI](https://github.com/technoporada/DealCollector/actions/workflows/ci.yml/badge.svg)](https://github.com/technoporada/DealCollector/actions)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://python.org)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-009688.svg)](https://fastapi.tiangolo.com)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-Pobiera oferty ze Steam, Epic, GOG i SharewareOnSale. Dashboard w przeglądarce.
+**Free games and software collector — Steam, Epic, GOG, SharewareOnSale.**
 
-## 🚀 Instalacja
+Dashboard with favorites, auto-refresh, and category filtering. Zero accounts needed.
+
+> **Keywords:** `free-games` `steam` `epic-games` `gog` `deal-collector` `fastapi` `python` `scraping`
+
+---
+
+## Features
+
+| Source | What it finds |
+|--------|--------------|
+| **SteamDB** | Free games on Steam |
+| **Epic Games** | Weekly free games |
+| **GOG** | DRM-free free games |
+| **SharewareOnSale** | Free software deals |
+
+- Favorites system
+- Category filtering
+- Auto-refresh
+- JSON database (local)
+
+## Quick Start
 
 ```bash
-# 1. Zainstaluj zależności
+git clone https://github.com/technoporada/DealCollector.git
+cd DealCollector
+
+python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
-# 2. Uruchom serwer
 python main.py
-
-# 3. Otwórz przeglądarkę
-# http://127.0.0.1:8000
+# → http://127.0.0.1:8000
 ```
 
-## ✨ Funkcje
+## API Endpoints
 
-- 🎮 **Steam** - darmowe gry (via SteamDB)
-- 🔵 **Epic Games** - cotygodniowe darmówki
-- 🟣 **GOG** - darmowe gry DRM-free
-- 📦 **SharewareOnSale** - darmowe programy
-- ⭐ **Ulubione** - zapisz oferty
-- 🔄 **Auto-refresh** - odświeżaj co X minut
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/deals` | GET | All deals (optional `?category=`) |
+| `/api/deals` | GET | Filter by category |
+| `/api/favorites` | GET | Favorite deals |
+| `/api/favorites/{id}` | POST | Add to favorites |
+| `/api/favorites/{id}` | DELETE | Remove from favorites |
+| `/api/scrape` | POST | Trigger scraping |
+| `/api/stats` | GET | Dashboard stats |
 
-## 📁 Struktura
+## Project Structure
 
 ```
 DealCollector/
 ├── main.py              # FastAPI server
-├── requirements.txt     # Zależności
-├── scrapers/            # Moduły scrapujące
+├── requirements.txt
+├── scrapers/
+│   ├── base_scraper.py  # Base scraper class
 │   ├── steamdb_scraper.py
 │   ├── epic_scraper.py
 │   ├── gog_scraper.py
 │   └── shareware_scraper.py
-└── frontend/            # Dashboard HTML/CSS/JS
+└── frontend/
     ├── index.html
     ├── style.css
     └── app.js
 ```
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-- **Backend**: FastAPI + Python
-- **Scraping**: aiohttp + BeautifulSoup
-- **Frontend**: Vanilla JS + CSS
-- **Baza**: JSON (lokalnie)
+- **Backend:** FastAPI + uvicorn
+- **Scraping:** aiohttp + BeautifulSoup4
+- **Frontend:** Vanilla JS + CSS
+- **Database:** JSON (local)
 
-## ⚠️ Uwagi
-
-- Tylko do użytku lokalnego
-- Nie spamuj odświeżaniem
-- Szanuj regulaminy serwisów
-
-## 📜 Licencja
+## License
 
 MIT
 
----
+## Author
 
-*"Darmowe gry są dobre gry"* 🎮
+**technoporada** — [github.com/technoporada](https://github.com/technoporada)
