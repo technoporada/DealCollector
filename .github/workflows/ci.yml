@@ -1,3 +1,5 @@
+permissions:
+  contents: read
 name: CI
 
 on:
@@ -8,7 +10,7 @@ on:
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -18,7 +20,7 @@ jobs:
       - run: flake8 --select=E9,F63,F7,F82 --ignore=E501 main.py scrapers/
 
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         python-version: ["3.10", "3.11", "3.12"]
@@ -31,7 +33,7 @@ jobs:
       - run: python -m pytest tests/ -v 2>/dev/null || echo "No tests yet"
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: [lint]
     steps:
       - uses: actions/checkout@v4
